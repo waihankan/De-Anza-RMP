@@ -5,14 +5,17 @@
     "description": "Chromium based browser extension that shows the professor ratings on the registration page",
     "permissions": ["activeTab", "storage", "webRequest"],
     "optional_permissions": ["webNavigation", "tabs"],
+    "icons": {
+        "16": "images/icon16.png",
+        "19": "images/icon19.png",
+        "32": "images/icon32.png",
+        "38": "images/icon38.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
     "action": {
         "default_popup": "popup.html",
-        "default_icon": {
-            "16": "images/astronaut16.png",
-            "32": "images/astronaut32.png",
-            "48": "images/astronaut48.png",
-            "128": "images/astronaut128.png"
-        }
+        "default_title": "De Anza RMP"
     },
     "background": {
         "service_worker": "background.js"
