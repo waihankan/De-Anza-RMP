@@ -24,4 +24,4 @@
         }
     ],
     "host_permissions": ["https://ssb-prod.ec.fhda.edu/PROD/*", "https://www.ratemyprofessors.com/*"]
-    }
+}
