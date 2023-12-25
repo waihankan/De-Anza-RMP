@@ -3,7 +3,8 @@
     "name": "De Anza RMP",
     "version": "1.0",
     "description": "Chromium based browser extension that shows the professor ratings on the registration page",
-    "permission": ["activeTab", "storage", "webRequest"],
+    "permissions": ["activeTab", "storage", "webRequest"],
+    "optional_permissions": ["webNavigation", "tabs"],
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -11,16 +12,16 @@
             "32": "images/astronaut32.png",
             "48": "images/astronaut48.png",
             "128": "images/astronaut128.png"
-        },
-        "background": {
-            "service_worker": "background.js"
-        },
-        "content_scripts": [
-            {
-                "matches": ["https://ssb-prod.ec.fhda.edu/PROD/bwskfcls.P_GetCrse"],
-                "js": ["content.js"]
-            }
-        ],
-        "host_permissions": ["https://ssb-prod.ec.fhda.edu/PROD/bwskfcls.P_GetCrse", "https://www.ratemyprofessors.com/*"]
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://ssb-prod.ec.fhda.edu/PROD/bwskfcls.P_GetCrse"],
+            "js": ["content.js"]
+        }
+    ],
+    "host_permissions": ["https://ssb-prod.ec.fhda.edu/PROD/*", "https://www.ratemyprofessors.com/*"]
     }
-}
