@@ -1,10 +1,11 @@
 const AUTH_TOKEN = 'dGVzdDp0ZXN0';
-
 const schoolID = 'U2Nob29sLTE5Njc='; // De Anza College ID
 
 let professorRatingMap = new Map();
-
 let professors;
+let classData;
+
+
 chrome.runtime.onMessage.addListener((message) => {
     if (message.type === "ProfessorSets") {
         professors = Object.values(message.data);
@@ -28,15 +29,44 @@ chrome.runtime.onMessage.addListener((message) => {
     }
 
     else if (message.type === "ClassData") {
-        const classData = message.data;
-        console.log(classData);
+        Promise.all(professors.map(async (prof) => {
+            const modifiedName = getFirstAndLastName(prof);
+            const professor = await searchProfessorOnRmp(modifiedName, schoolID);
+            if (professor && professor.length > 0) {
+                const professorRating = await getProfessor(professor[0].id);
+                professorRatingMap.set(prof, {
+                    "avgRating": professorRating.avgRating,
+                    "avgDifficulty": professorRating.avgDifficulty,
+                    "takeAgain": professorRating.wouldTakeAgainPercent
+                });
+            }
+        })).then(() => {
+            classData = new Map(message.data);
+            classData.forEach((value, key) => {
+                const name = value.profName;
+                const rating = professorRatingMap.get(name);
+                if (rating) {
+                    value.avgRating = rating.avgRating;
+                    value.avgDifficulty = rating.avgDifficulty;
+                    value.takeAgain = rating.takeAgain;
+                }
+                else {
+                    value.avgRating = "N/A";
+                    value.avgDifficulty = "N/A";
+                    value.takeAgain = "N/A";
+                }
+            });
+            console.log(classData);
+        })
     }
 });
 
 
-
-
-
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "GET_PROFESSOR_RATINGS_AND_CLASS_DATA") {
+        sendResponse(Array.from(classData));
+    }
+});
 
 
 
@@ -137,37 +167,14 @@ const getProfessor = async (id) => {
 };
 
 
-// async function run() {
-//     const test = professors[0];
-//     console.log("searching name: " + test);
-//     const professor = await searchProfessorOnRmp(test, schoolID);
 
-//     if (professor && professor.length > 0) {
-//         const professorRating = await getProfessor(professor[0].id);
-//         console.log(test + "'s rating: " + professorRating);
+// // Listen for requests from the popup script
+// chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+//     if (message.type === "GET_PROFESSOR_RATINGS_AND_CLASS_DATA") {
+//         // send data back to popup.js
+//         sendResponse(classData);
 //     }
-
-// }
-
-// run();
-
-
-// Listen for requests from the popup script
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-    if (message.type === "GET_PROFESSOR_RATINGS") {
-        console.log(professorRatingMap.get("Jeffrey L West"));
-        // const test = professors[0];
-        // console.log("searching name: " + test);
-        // const newname = getFirstAndLastName(test);
-        // console.log(newname);
-        // const professor = await searchProfessorOnRmp(newname, schoolID);
-
-        // if (professor && professor.length > 0) {
-        //     const professorRating = await getProfessor(professor[0].id);
-        //     console.log(test + "'s rating: " + professorRating.avgRating);
-        // }
-    }
-});
+// });
 
 function getFirstAndLastName(name) {
     const nameParts = name.split(/[\s-]+/);

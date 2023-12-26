@@ -81,6 +81,15 @@
             background-color: #e7e4e4;
         }
 
+        .table tr td:first-child,
+        .table tr th:first-child {
+            color: white;
+        }
+
+        .table tr td:first-child {
+            color: rgba(12, 72, 237, 0.803);
+        }
+
         .table th,
         .table td {
             font-family: 'Roboto', sans-serif;
@@ -117,6 +126,13 @@
             border-radius: 5px;
         }
 
+        .not-found {
+            background-color: rgba(208, 201, 189, 0.821);
+            color: rgb(89, 88, 88);
+            padding: 2px 7px;
+            border-radius: 5px;
+        }
+
 
         .rating-high {
             background-color: rgba(10, 192, 10, 0.83);
@@ -143,6 +159,11 @@
             justify-content: center;
         }
 
+        .feedback-link {
+            color: #666;
+            text-decoration: none;
+            padding-left: 20px;
+        }
 
         .footer {
             width: 100%;
@@ -150,15 +171,16 @@
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             position: absolute;
             bottom: 0;
         }
 
         .footer p {
-            font-size: 11px;
+            font-size: 10px;
             font-family: Arial, sans-serif;
+            padding-right: 20px;
             color: #333;
         }
     </style>
@@ -187,18 +209,19 @@
                     <th>Difficulty</th>
                     <th>Open Seats</th>
                 </tr>
-
             </table>
         </div>
 
         <!-- make a footer -->
         <div class="footer">
-            <p>&copy; 2023 Created by: <a href="#">Wai Han </a></p>
+            <p> <a target="_blank" href="https://github.com/waihankan/De-Anza-RMP/issues" class="feedback-link">
+                    Feedback & Issues</a>
+            </p>
+
+            <p>&copy; 2023 Created by: <a target="_blank" href="https://github.com/waihankan/" style="color: #333;">Wai
+                    Han
+                </a></p>
         </div>
-
-
-
-
     </div>
     <script src="popup.js"></script>
 </body>

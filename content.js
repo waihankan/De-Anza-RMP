@@ -41,8 +41,10 @@ function scrapeRows() {
             const crn = cells[1].textContent.trim();
             const rem = cells[12].textContent.trim();
             const wlRem = cells[13].textContent.trim();
+            const profName = cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
+                .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
             if (crn !== null && crn !== undefined && crn !== "") {
-                tempMap.set(crn, { rem, wlRem })
+                tempMap.set(crn, { profName,rem, wlRem })
             }
         }
     })
