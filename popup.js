@@ -36,9 +36,11 @@ function manipulateDOM() {
         let rating = row.insertCell(2);
         let difficulty = row.insertCell(3);
         let openSeats = row.insertCell(4);
+        console.log(value);
+        let link = "https://www.ratemyprofessors.com/professor/" + value.link;
 
         crn.innerHTML = key;
-        name.innerHTML = value.profName;
+        name.innerHTML = `<a style="color: #333" target="_blank" href="${link}">${value.profName}</a>`;
         rating.innerHTML = `<span class="rating">${value.avgRating}</span>`;
         difficulty.innerHTML = `<span class="rating">${value.avgDifficulty}</span>`;
         openSeats.innerHTML = +value.rem + +value.wlRem;

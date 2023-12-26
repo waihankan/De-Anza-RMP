@@ -17,7 +17,8 @@ chrome.runtime.onMessage.addListener((message) => {
                 professorRatingMap.set(prof, {
                     "avgRating": professorRating.avgRating,
                     "avgDifficulty": professorRating.avgDifficulty,
-                    "takeAgain": professorRating.wouldTakeAgainPercent
+                    "takeAgain": professorRating.wouldTakeAgainPercent,
+                    "link": professorRating.legacyId
                 });
             }
         })).then(() => {
@@ -37,7 +38,8 @@ chrome.runtime.onMessage.addListener((message) => {
                 professorRatingMap.set(prof, {
                     "avgRating": professorRating.avgRating,
                     "avgDifficulty": professorRating.avgDifficulty,
-                    "takeAgain": professorRating.wouldTakeAgainPercent
+                    "takeAgain": professorRating.wouldTakeAgainPercent,
+                    "link": professorRating.legacyId
                 });
             }
         })).then(() => {
@@ -49,11 +51,13 @@ chrome.runtime.onMessage.addListener((message) => {
                     value.avgRating = rating.avgRating;
                     value.avgDifficulty = rating.avgDifficulty;
                     value.takeAgain = rating.takeAgain;
+                    value.link = rating.link;
                 }
                 else {
                     value.avgRating = "N/A";
                     value.avgDifficulty = "N/A";
                     value.takeAgain = "N/A";
+                    value.link = "undefined";
                 }
             });
             console.log(classData);
