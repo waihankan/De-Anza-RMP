@@ -1,6 +1,7 @@
 const instructorIndex = 14;
 const rmpIndex = instructorIndex + 1;
 let profSet;
+let classData = new Map();
 
 function scrapeInstructors(instructorIndex) {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
@@ -15,7 +16,7 @@ function scrapeInstructors(instructorIndex) {
         if (instructorIndex < cells.length) {
             // clean up professor name
             const profName = cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
-            .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
+                .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
             if (profName !== null && profName !== undefined) {
                 profSet.add(profName);
             }
@@ -23,6 +24,31 @@ function scrapeInstructors(instructorIndex) {
     })
     return profSet;
 }
+
+
+// scrape CRN, Rem, WL Rem
+function scrapeRows() {
+    const rows = document.querySelectorAll('.datadisplaytable tbody tr');
+    if (!rows || rows.length === 0) {
+        return null;
+    }
+
+    const tempMap = new Map();
+
+    rows.forEach((row) => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length === 20) {
+            const crn = cells[1].textContent.trim();
+            const rem = cells[12].textContent.trim();
+            const wlRem = cells[13].textContent.trim();
+            if (crn !== null && crn !== undefined && crn !== "") {
+                tempMap.set(crn, { rem, wlRem })
+            }
+        }
+    })
+    return tempMap;
+}
+
 
 function addLoadingRating() {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
@@ -50,8 +76,12 @@ function addLoadingRating() {
 window.onload = () => {
     addLoadingRating();
     profSet = scrapeInstructors(instructorIndex);
-    chrome.runtime.sendMessage({type: "ProfessorSets", data: Array.from(profSet)}, () => {
+    classData = scrapeRows();
+    chrome.runtime.sendMessage({ type: "ProfessorSets", data: Array.from(profSet) }, () => {
         console.log("professor set sent from content to background");
+    });
+    chrome.runtime.sendMessage({ type: "ClassData", data: Array.from(classData) }, () => {
+        console.log("class data sent from content to background");
     });
 }
 

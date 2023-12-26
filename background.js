@@ -14,17 +14,22 @@ chrome.runtime.onMessage.addListener((message) => {
             if (professor && professor.length > 0) {
                 const professorRating = await getProfessor(professor[0].id);
                 professorRatingMap.set(prof, {
-                    "avgRating" : professorRating.avgRating,
-                    "avgDifficulty" : professorRating.avgDifficulty,
-                    "takeAgain" : professorRating.wouldTakeAgainPercent
+                    "avgRating": professorRating.avgRating,
+                    "avgDifficulty": professorRating.avgDifficulty,
+                    "takeAgain": professorRating.wouldTakeAgainPercent
                 });
             }
         })).then(() => {
             const professorRatingObj = Object.fromEntries(professorRatingMap);
-            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-                chrome.tabs.sendMessage(tabs[0].id, {type: "ProfessorRatings", data: professorRatingObj});
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                chrome.tabs.sendMessage(tabs[0].id, { type: "ProfessorRatings", data: professorRatingObj });
             });
         });
+    }
+
+    else if (message.type === "ClassData") {
+        const classData = message.data;
+        console.log(classData);
     }
 });
 
