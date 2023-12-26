@@ -50,6 +50,3 @@ This project is licensed under the terms of the MIT license. See the [LICENSE](L
 I would like to express gratitude to the following people and organizations:
 
 - [Aung Bo Bo](https://github.com/aungbbo): For their invaluable ideas to the project.
-
-Please replace [Person or Organization Name](#) with the actual names and URLs (if available) of the people or organizations you want to acknowledge.
-
