@@ -49,22 +49,24 @@ chrome.runtime.onMessage.addListener((message) => {
             }
         })).then(() => {
             classData = new Map(message.data);
-            classData.forEach((value, key) => {
-                const name = value.profName;
-                const rating = professorRatingMap.get(name);
-                if (rating) {
-                    value.avgRating = rating.avgRating;
-                    value.avgDifficulty = rating.avgDifficulty;
-                    value.takeAgain = rating.takeAgain;
-                    value.link = rating.link;
-                }
-                else {
-                    value.avgRating = "N/A";
-                    value.avgDifficulty = "N/A";
-                    value.takeAgain = "N/A";
-                    value.link = "undefined";
-                }
-            });
+            if (professorRatingMap !== undefined && classData !== undefined) {
+                classData.forEach((value, key) => {
+                    const name = value.profName;
+                    const rating = professorRatingMap.get(name);
+                    if (rating) {
+                        value.avgRating = rating.avgRating;
+                        value.avgDifficulty = rating.avgDifficulty;
+                        value.takeAgain = rating.takeAgain;
+                        value.link = rating.link;
+                    }
+                    else {
+                        value.avgRating = "N/A";
+                        value.avgDifficulty = "N/A";
+                        value.takeAgain = "N/A";
+                        value.link = "undefined";
+                    }
+                });
+            }
         })
     }
 });
@@ -74,9 +76,10 @@ chrome.runtime.onMessage.addListener((message) => {
  * Send the data when received a request.
  */
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === "GET_PROFESSOR_RATINGS_AND_CLASS_DATA") {
+    if (message.type === "GET_PROFESSOR_RATINGS_AND_CLASS_DATA" && classData !== undefined) {
         sendResponse(Array.from(classData));
     }
+    return true;
 });
 
 

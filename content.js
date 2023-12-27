@@ -12,12 +12,14 @@ window.onload = () => {
     addLoadingRating();
     profSet = scrapeInstructors(instructorIndex);
     classData = scrapeRows();
-    chrome.runtime.sendMessage({ type: "ProfessorSets", data: Array.from(profSet) }, () => {
-        // console.log("professor set sent from content to background");
-    });
-    chrome.runtime.sendMessage({ type: "ClassData", data: Array.from(classData) }, () => {
-        // console.log("class data sent from content to background");
-    });
+    if (profSet !== null || classData !== null) {
+        chrome.runtime.sendMessage({ type: "ProfessorSets", data: Array.from(profSet) }, () => {
+            // console.log("professor set sent from content to background");
+        });
+        chrome.runtime.sendMessage({ type: "ClassData", data: Array.from(classData) }, () => {
+            // console.log("class data sent from content to background");
+        });
+    }
 }
 
 
