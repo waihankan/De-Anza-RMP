@@ -35,6 +35,7 @@ De-Anza-RMP is a Chromium-based browser extension that integrates professor rati
 
 - Once installed, navigate to the registration page. The professor ratings will automatically appear next to each professor's name.
 - Click on the Extension button to check all the classes and professor ratings **sorted** in order of **Average Rating** and **Available Seats**.
+- Prior to utilizing the extension, kindly review the Disclaimer provided below. By using the extension, you acknowledge your agreement with the stated conditions and an understanding of associated risks. 
 
 ## Disclaimer
 
