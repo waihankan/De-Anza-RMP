@@ -18,7 +18,7 @@ wrongPage.innerHTML = `
     <ul>
         <li>The extension works only on FHDA registration page.</li>
         <li>Please refresh if you're on FHDA registration page and seeing this message.</li>
-        <li>For other issues, please click on the "Feedback & Issues" underneath.</li>
+        <li>For other issues, please click on the "Feedback & Issues" below.</li>
     </ul>
 `;
 document.getElementsByClassName('container')[0].appendChild(wrongPage);
