@@ -1,5 +1,31 @@
 let tableData = new Map();
 
+
+let tips = document.getElementsByClassName('tips')[0];
+let table = document.getElementsByClassName('scrollable-table')[0];
+if (tips) {
+    tips.classList.add('hidden');
+}
+
+if (table) {
+    table.classList.add('hidden');
+}
+
+// add a tips section
+let wrongPage = document.createElement('div');
+wrongPage.classList.add('not-working');
+wrongPage.innerHTML = `
+    <ul>
+        <li>The extension works only on FHDA registration page.</li>
+        <li>Please refresh if you're on FHDA registration page and seeing this message.</li>
+        <li>For other issues, please click on the "Feedback & Issues" underneath.</li>
+    </ul>
+`;
+document.getElementsByClassName('container')[0].appendChild(wrongPage);
+
+
+
+
 chrome.runtime.sendMessage({ type: "GET_PROFESSOR_RATINGS_AND_CLASS_DATA" }, response => {
     tableData = new Map(response);
 
@@ -15,8 +41,12 @@ chrome.runtime.sendMessage({ type: "GET_PROFESSOR_RATINGS_AND_CLASS_DATA" }, res
             return a[1].avgRating < b[1].avgRating ? 1 : -1;
         }
     }));
-
-    manipulateDOM();
+    if (tableData !== undefined) {
+        document.getElementsByClassName('not-working')[0].classList.add('hidden');
+        document.getElementsByClassName('tips')[0].classList.remove('hidden');
+        document.getElementsByClassName('scrollable-table')[0].classList.remove('hidden');
+        manipulateDOM();
+    }
 });
 
 

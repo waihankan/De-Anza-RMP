@@ -12,6 +12,32 @@
             padding: 0;
         }
 
+        .hidden {
+            display: none !important;
+        }
+
+        .not-working ul {
+            list-style-type: none;
+            padding: 20px;
+        }
+
+        .not-working li {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        .not-working {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            color: #333;
+        }
 
         .navbar {
             width: 90%;
@@ -177,10 +203,16 @@
             bottom: 0;
         }
 
+        .footer-div {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+        }
+
         .footer p {
             font-size: 10px;
             font-family: Arial, sans-serif;
-            padding-right: 20px;
+            padding-right: 3px;
             color: #333;
         }
     </style>
@@ -214,11 +246,17 @@
 
         <!-- make a footer -->
         <div class="footer">
-            <p> <a target="_blank" href="https://github.com/waihankan/De-Anza-RMP/issues" class="feedback-link">
-                    Feedback & Issues</a>
-            </p>
-
-            <p>&copy; 2023 Created by: <a target="_blank" href="https://github.com/waihankan/" style="color: #333">Wai
+            <div class="footer-div">
+                <p>
+                    <a target="_blank" href="https://github.com/waihankan/De-Anza-RMP/issues" class="feedback-link">
+                        Feedback & Issues | </a>
+                </p>
+                <p>
+                    <a target="_blank" href="#" style="color: #666; text-decoration: none;"> Disclaimer</a>
+                </p>
+            </div>
+            <p style="padding-right: 10px">&copy; 2023 Created by: <a target="_blank"
+                    href="https://github.com/waihankan/" style="color: #333">Wai
                     Han
                 </a></p>
         </div>
