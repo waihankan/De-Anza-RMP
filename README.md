@@ -51,6 +51,17 @@ Please read the [disclaimer](DISCLAIMER.md) for more information.
 
 We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for more details.
 
+
+## Privacy
+#### Information Collection and Usage
+We do not collect any personal information or data from users of the Extension. Your privacy is of utmost importance to us, and our commitment is to provide a secure and anonymous user experience.
+
+#### Information Sharing
+Since we do not collect any user data, we do not share any personal information with third parties. Rest assured, your privacy is our top priority, and your data remains confidential.
+
+#### Changes to This Privacy Policy
+We may update our Privacy Policy from time to time. Thus, we advise you to review this page periodically for any changes. We will notify you of any significant changes by posting the new Privacy Policy on this page.
+
 ## License
 
 This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for details.
