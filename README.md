@@ -37,6 +37,12 @@ De-Anza-RMP is a Chromium-based browser extension that integrates professor rati
 - Click on the Extension button to check all the classes and professor ratings **sorted** in order of **Average Rating** and **Available Seats**.
 - Prior to utilizing the extension, kindly review the Disclaimer provided below. By using the extension, you acknowledge your agreement with the stated conditions and an understanding of associated risks. 
 
+# ☕ Buy Me a Coffee
+If you find this project helpful or just want to show your appreciation, consider buying me a coffee! Your support helps keep the project alive and contributes to future development.
+<br>
+<br>
+<a href="https://www.buymeacoffee.com/waihankan" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="40" width="170"></a>
+
 ## Disclaimer
 
 By using this extension, you acknowledge that you have read and understood the [disclaimer](DISCLAIMER.md) associated with it. All risks related to the use of this extension are assumed by the user. The developer is not responsible for any damages or losses related to the use or misuse of this extension.
