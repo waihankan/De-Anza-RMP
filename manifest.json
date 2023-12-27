@@ -3,13 +3,8 @@
     "name": "De Anza RMP",
     "version": "1.0.1",
     "description": "Chromium based browser extension that shows the professor ratings on the registration page",
-    "permissions": [
-        "activeTab",
-        "webRequest"
-    ],
-    "optional_permissions": [
-        "tabs"
-    ],
+    "permissions": [],
+    "optional_permissions": [],
     "icons": {
         "16": "images/icon16.png",
         "19": "images/icon19.png",
