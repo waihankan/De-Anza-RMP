@@ -1,11 +1,10 @@
-
-let fakeData = new Map();
+let tableData = new Map();
 
 chrome.runtime.sendMessage({ type: "GET_PROFESSOR_RATINGS_AND_CLASS_DATA" }, response => {
-    fakeData = new Map(response);
+    tableData = new Map(response);
 
-    // sort fakeData by avgRating and then +value.rem + +value.wlRem
-    fakeData = new Map([...fakeData.entries()].sort((a, b) => {
+    // sort tableData by avgRating and then +value.rem + +value.wlRem
+    tableData = new Map([...tableData.entries()].sort((a, b) => {
         if (a[1].avgRating === "N/A" && b[1].avgRating === "N/A") {
             return +a[1].rem + +a[1].wlRem < +b[1].rem + +b[1].wlRem ? 1 : -1;
         } else if (a[1].avgRating === "N/A") {
@@ -17,18 +16,14 @@ chrome.runtime.sendMessage({ type: "GET_PROFESSOR_RATINGS_AND_CLASS_DATA" }, res
         }
     }));
 
-    console.log(fakeData);
     manipulateDOM();
 });
 
 
 function manipulateDOM() {
-    console.log("Here it is in popup.js");
-    console.log(fakeData);
-
     let table = document.getElementsByClassName('table')[0];
 
-    fakeData.forEach((value, key) => {
+    tableData.forEach((value, key) => {
         let row = table.insertRow(-1);
 
         let crn = row.insertCell(0);
@@ -36,7 +31,6 @@ function manipulateDOM() {
         let rating = row.insertCell(2);
         let difficulty = row.insertCell(3);
         let openSeats = row.insertCell(4);
-        console.log(value);
         let link = "https://www.ratemyprofessors.com/professor/" + value.link;
 
         crn.innerHTML = key;

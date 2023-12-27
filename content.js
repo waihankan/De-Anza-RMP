@@ -3,6 +3,41 @@ const rmpIndex = instructorIndex + 1;
 let profSet;
 let classData = new Map();
 
+
+/**
+ * Main function that runs when the page loads.
+ * Scrape Data -> Send Data to Background -> Send Data to Content
+ */
+window.onload = () => {
+    addLoadingRating();
+    profSet = scrapeInstructors(instructorIndex);
+    classData = scrapeRows();
+    chrome.runtime.sendMessage({ type: "ProfessorSets", data: Array.from(profSet) }, () => {
+        // console.log("professor set sent from content to background");
+    });
+    chrome.runtime.sendMessage({ type: "ClassData", data: Array.from(classData) }, () => {
+        // console.log("class data sent from content to background");
+    });
+}
+
+
+/**
+ * Listens for a message from the background script containing professor ratings.
+ * This message is used to update the ratings column in the table.
+ */
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === "ProfessorRatings") {
+        const professorRatings = message.data;
+        updateRatings(professorRatings);
+    }
+});
+
+/**
+ * Scrapes the instructors' names from a table and returns a set of unique names.
+ * 
+ * @param {number} instructorIndex - The index of the column containing the instructor names.
+ * @returns {Set<string> | null} - A set of unique instructor names, or null if no rows are found.
+ */
 function scrapeInstructors(instructorIndex) {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
     let profSet = new Set();
@@ -25,8 +60,12 @@ function scrapeInstructors(instructorIndex) {
     return profSet;
 }
 
-
 // scrape CRN, Rem, WL Rem
+/**
+ * Scrapes the rows of a table and returns a map of course information.
+ * @returns {Map<string, { profName: string, rem: string, wlRem: string }>} A map containing course information
+ * with CRN as the key and an object with professor name, remaining seats, and waitlist remaining seats as the value.
+ */
 function scrapeRows() {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
     if (!rows || rows.length === 0) {
@@ -34,7 +73,6 @@ function scrapeRows() {
     }
 
     const tempMap = new Map();
-
     rows.forEach((row) => {
         const cells = row.querySelectorAll('td');
         if (cells.length === 20) {
@@ -44,14 +82,16 @@ function scrapeRows() {
             const profName = cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
                 .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
             if (crn !== null && crn !== undefined && crn !== "") {
-                tempMap.set(crn, { profName,rem, wlRem })
+                tempMap.set(crn, { profName, rem, wlRem })
             }
         }
     })
     return tempMap;
 }
 
-
+/**
+ * Adds a loading rating column to the table.
+ */
 function addLoadingRating() {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
 
@@ -75,29 +115,11 @@ function addLoadingRating() {
     }
 }
 
-window.onload = () => {
-    addLoadingRating();
-    profSet = scrapeInstructors(instructorIndex);
-    classData = scrapeRows();
-    chrome.runtime.sendMessage({ type: "ProfessorSets", data: Array.from(profSet) }, () => {
-        console.log("professor set sent from content to background");
-    });
-    chrome.runtime.sendMessage({ type: "ClassData", data: Array.from(classData) }, () => {
-        console.log("class data sent from content to background");
-    });
-}
-
-
-chrome.runtime.onMessage.addListener((message) => {
-    if (message.type === "ProfessorRatings") {
-        const professorRatings = message.data;
-
-        console.log(professorRatings);
-
-        updateRatings(professorRatings);
-    }
-});
-
+/**
+ * Updates the ratings of professors in a table based on the provided professor ratings.
+ * 
+ * @param {Object} professorRatings - The object containing the ratings of professors.
+ */
 function updateRatings(professorRatings) {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
 
@@ -114,8 +136,4 @@ function updateRatings(professorRatings) {
         const rating = professorRatings[profName]?.avgRating || "can't find";
         rows[i].cells[rmpIndex].textContent = rating;
     }
-
-    console.log("GETTING DATA FROM BACKGROUND");
-    console.log(professorRatings);
 }
-

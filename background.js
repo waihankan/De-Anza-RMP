@@ -6,11 +6,16 @@ let professors;
 let classData;
 
 
+/**
+ * Listens for messages from the content scripts.
+ * Performs actions based on the type of message received.
+ */
 chrome.runtime.onMessage.addListener((message) => {
     if (message.type === "ProfessorSets") {
         professors = Object.values(message.data);
         Promise.all(professors.map(async (prof) => {
             const modifiedName = getFirstAndLastName(prof);
+
             const professor = await searchProfessorOnRmp(modifiedName, schoolID);
             if (professor && professor.length > 0) {
                 const professorRating = await getProfessor(professor[0].id);
@@ -60,12 +65,14 @@ chrome.runtime.onMessage.addListener((message) => {
                     value.link = "undefined";
                 }
             });
-            console.log(classData);
         })
     }
 });
 
-
+/**
+ * Listens for messages from the popup.js.
+ * Send the data when received a request.
+ */
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "GET_PROFESSOR_RATINGS_AND_CLASS_DATA") {
         sendResponse(Array.from(classData));
@@ -73,13 +80,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 
+// HELPER FUNCTIONS
 
-
-
-
-
-
-// helper functions
+/**
+ * Searches for a professor on RateMyProfessors.com using the provided name and school ID.
+ * @param {string} name - The name of the professor to search for.
+ * @param {string} schoolID - The ID of the school where the professor is affiliated.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of professor objects found on RateMyProfessors.com.
+ */
 async function searchProfessorOnRmp(name, schoolID) {
     const response = await fetch(
         `https://www.ratemyprofessors.com/graphql`,
@@ -126,7 +134,11 @@ async function searchProfessorOnRmp(name, schoolID) {
 }
 
 
-
+/**
+ * Retrieves professor information from RateMyProfessors API.
+ * @param {string} id - The ID of the professor.
+ * @returns {Promise<Object>} - A promise that resolves to the professor information.
+ */
 const getProfessor = async (id) => {
     const response = await fetch(
         // self hosted proxy
@@ -170,16 +182,11 @@ const getProfessor = async (id) => {
     return json.data.node;
 };
 
-
-
-// // Listen for requests from the popup script
-// chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-//     if (message.type === "GET_PROFESSOR_RATINGS_AND_CLASS_DATA") {
-//         // send data back to popup.js
-//         sendResponse(classData);
-//     }
-// });
-
+/**
+ * Returns the first and last name from a given full name.
+ * @param {string} name - The full name.
+ * @returns {string} - The first and last name.
+ */
 function getFirstAndLastName(name) {
     const nameParts = name.split(/[\s-]+/);
     if (nameParts.length === 2) {
