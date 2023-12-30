@@ -9,7 +9,7 @@ Enhance your class registration with **De Anza Rate My Professors Extension (De-
 
 ## Features
 
-- Displays professor ratings on the registration page
+- Displays professor ratings on FHDA MyPortal registration page
 - Provides quick access to professor reviews
 
 ## Demo
