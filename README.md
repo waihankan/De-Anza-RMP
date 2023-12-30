@@ -5,7 +5,7 @@
 </div>
 
 
-De-Anza-RMP is a Chromium-based browser extension that integrates professor ratings directly into the registration page. This allows students to make more informed decisions when registering for classes.
+Enhance your class registration with **De Anza Rate My Professors Extension (De-Anza-RMP)**, a Chromium-based browser extension. Seamlessly integrating professor ratings into the registration page, this tool empowers students to make well-informed decisions when selecting classes.
 
 ## Features
 
