@@ -23,7 +23,8 @@ chrome.runtime.onMessage.addListener((message) => {
                     "avgRating": professorRating.avgRating,
                     "avgDifficulty": professorRating.avgDifficulty,
                     "takeAgain": professorRating.wouldTakeAgainPercent,
-                    "link": professorRating.legacyId
+                    "link": professorRating.legacyId,
+                    "online": professorRating.online
                 });
             }
         })).then(() => {
@@ -44,7 +45,8 @@ chrome.runtime.onMessage.addListener((message) => {
                     "avgRating": professorRating.avgRating,
                     "avgDifficulty": professorRating.avgDifficulty,
                     "takeAgain": professorRating.wouldTakeAgainPercent,
-                    "link": professorRating.legacyId
+                    "link": professorRating.legacyId,
+                    "online": professorRating.online
                 });
             }
         })).then(() => {
