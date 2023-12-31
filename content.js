@@ -183,7 +183,7 @@ function updateRatings(professorRatings) {
             border-radius: 5px;
         }
 
-        a:link, a:visited {
+        td a:link, a:visited {
             color: white !important;
             text-decoration: none;
         }
