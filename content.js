@@ -140,18 +140,6 @@ function updateRatings(professorRatings) {
         }
         const profName = rows[i].cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
             .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
-        // const rating = professorRatings[profName]?.avgRating || "can't find";
-        // rows[i].cells[rmpIndex].textContent = rating;
-
-        // const rating = professorRatings[profName]?.avgRating || "can't find";
-        // const ratingElement = document.createElement('a');
-        // ratingElement.href = `https://www.ratemyprofessors.com/professor/${professorRatings[profName]?.link}`
-        // ratingElement.style.color = "black !important";
-        // ratingElement.style.textDecoration = "none";
-        // ratingElement.textContent = rating;
-        // rows[i].cells[rmpIndex].innerHTML = '';
-        // rows[i].cells[rmpIndex].appendChild(ratingElement);
-
 
         const style = document.createElement('style');
         style.textContent = `
