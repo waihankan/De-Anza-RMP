@@ -45,7 +45,7 @@
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
             padding: 0px 20px;
         }
@@ -55,11 +55,22 @@
             height: 40px;
             background-image: url('images/astronaut128.png');
             background-size: cover;
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            opacity: 0.7;
         }
 
         .title {
             font-size: 20px;
             font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .title:hover {
+            opacity: 0.7;
         }
 
         .container {
@@ -188,7 +199,37 @@
         .feedback-link {
             color: #666;
             text-decoration: none;
-            margin-left: 20px;
+            margin-left: 10px;
+        }
+
+        .feedback-link:hover {
+            opacity: 0.7;
+        }
+
+        .coffee-link {
+            margin-left: 10px;
+        }
+
+        .coffee-link:hover {
+            opacity: 0.7;
+        }
+
+        .disclaimer-link {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .disclaimer-link:hover {
+            opacity: 0.7;
+        }
+
+        .github-link {
+            color: #333;
+            /* text-decoration: none; */
+        }
+
+        .github-link:hover {
+            opacity: 0.7;
         }
 
         .footer {
@@ -221,8 +262,15 @@
 <body>
     <div class="container">
         <div class="navbar">
-            <div class="logo"></div>
-            <h1 class="title">De Anza Professor Ratings</h1>
+            <a target="_blank" href="https://github.com/waihankan/De-Anza-RMP">
+                <div class="logo"></div>
+            </a>
+            <a target="_blank" href="https://github.com/waihankan/De-Anza-RMP"
+                style="color: #1e1f1e; text-decoration: none">
+                <h1 class="title">
+                    De Anza Professor Ratings
+                </h1>
+            </a>
         </div>
         <p class="tips">
             <img src="images/bulb.png" alt="tips" width="20px" height="20px" margin-right="5px" vertical-align="bottom">
@@ -247,22 +295,26 @@
         <!-- make a footer -->
         <div class="footer">
             <div class="footer-div">
+                <a href="https://www.buymeacoffee.com/waihankan" target="_blank" class="coffee-link">
+                    <img src="https://seeklogo.com/images/B/buy-me-a-coffee-logo-F1878A1EB2-seeklogo.com.png"
+                        alt="Buy Me a Coffee" style="width: 12px; height: auto;">
+                </a>
                 <p>
                     <a target="_blank" href="https://github.com/waihankan/De-Anza-RMP/issues" class="feedback-link">
                         Feedback & Issues | </a>
                 </p>
                 <p>
                     <a target="_blank" href="https://github.com/waihankan/De-Anza-RMP/blob/master/DISCLAIMER.md"
-                        style="color: #666; text-decoration: none;"> Disclaimer</a>
+                        class="disclaimer-link" "> Disclaimer</a>
                 </p>
             </div>
-            <p style="padding-right: 10px">&copy; 2023 Created by: <a target="_blank"
-                    href="https://github.com/waihankan/" style="color: #333">Wai
-                    Han
-                </a></p>
+            <p style=" padding-right: 10px">&copy; 2023 Created by: <a target="_blank"
+                            href="https://github.com/waihankan/" class="github-link">Wai Han
+                        </a>
+                </p>
+            </div>
         </div>
-    </div>
-    <script src="popup.js"></script>
+        <script src="popup.js"></script>
 </body>
 
 </html>
