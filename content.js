@@ -160,7 +160,7 @@ function updateRatings(professorRatings) {
             background-color: rgba(246, 43, 43, 0.736);
             color: white;
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
         }
 
         .rating-mid {
@@ -168,7 +168,7 @@ function updateRatings(professorRatings) {
             background-color: orange;
             color: white;
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
         }
 
         .rating-low:hover, .rating-mid:hover, .rating-high:hover {
@@ -181,7 +181,7 @@ function updateRatings(professorRatings) {
             background-color: rgba(208, 201, 189, 0.821);
             color: rgb(89, 88, 88);
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
             pointer-events: none
         }
 
@@ -190,7 +190,7 @@ function updateRatings(professorRatings) {
             background-color: rgba(10, 192, 10, 0.83);
             color: white;
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
         }
 
         td a:link, a:visited {
