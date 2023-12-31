@@ -124,18 +124,47 @@ function addLoadingRating() {
  */
 function updateRatings(professorRatings) {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
-
+    
     if (!rows || rows.length === 0) {
         return;
     }
-
+    
     for (let i = 2; i < rows.length; i++) {
         if (rows[i].cells.length <= 3 || instructorIndex >= rows[i].cells.length) {
             continue;
         }
         const profName = rows[i].cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
-            .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
+        .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
+
+        // get prof's profile link
+        const words = profName.split(" ");
+        const trimmedWords = words.map(word => word.trim());
+        const profFirstName = trimmedWords[0];
+        const profLastName = trimmedWords[trimmedWords.length-1];
+        const profileLink = "https://www.deanza.edu/directory/user.html?u=" + profLastName + profFirstName;
+
+        // embedding link to prof name
+        const profLink = document.createElement('a');
+        profLink.textContent = rows[i].cells[instructorIndex].textContent;
+        rows[i].cells[instructorIndex].textContent = '';
+        profLink.target = '_blank';
+        profLink.href = profileLink;
+        rows[i].cells[instructorIndex].appendChild(profLink);
+
+        // embedding rmp link 
         const rating = professorRatings[profName]?.avgRating || "can't find";
+        const ratingLink = document.createElement('a');
+        
         rows[i].cells[rmpIndex].textContent = rating;
+        
+        if (rating !== "can't find") {
+            rows[i].cells[rmpIndex].textContent = '';
+            ratingLink.textContent = rating;
+            ratingLink.target = '_blank';
+            ratingLink.href = `https://www.ratemyprofessors.com/professor/` + professorRatings[profName]?.link;
+            
+            rows[i].cells[rmpIndex].appendChild(ratingLink);
+        }
+
     }
 }
