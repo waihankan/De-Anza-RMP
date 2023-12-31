@@ -17,7 +17,8 @@ wrongPage.classList.add('not-working');
 wrongPage.innerHTML = `
     <ul>
         <li>The extension works only on FHDA registration page.</li>
-        <li>Please refresh if you're on FHDA registration page and seeing this message.</li>
+        <li>Please go to Myportal > Student Registration > Searchable Schedule of Classes > Choose a Term and Subject.</li>
+        <li>Please refresh if you're already on FHDA registration page and seeing this message.</li>
         <li>For other issues, please click on the "Feedback & Issues" below.</li>
     </ul>
 `;
