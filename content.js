@@ -135,7 +135,97 @@ function updateRatings(professorRatings) {
         }
         const profName = rows[i].cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
             .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
-        const rating = professorRatings[profName]?.avgRating || "can't find";
-        rows[i].cells[rmpIndex].textContent = rating;
+        // const rating = professorRatings[profName]?.avgRating || "can't find";
+        // rows[i].cells[rmpIndex].textContent = rating;
+
+        // const rating = professorRatings[profName]?.avgRating || "can't find";
+        // const ratingElement = document.createElement('a');
+        // ratingElement.href = `https://www.ratemyprofessors.com/professor/${professorRatings[profName]?.link}`
+        // ratingElement.style.color = "black !important";
+        // ratingElement.style.textDecoration = "none";
+        // ratingElement.textContent = rating;
+        // rows[i].cells[rmpIndex].innerHTML = '';
+        // rows[i].cells[rmpIndex].appendChild(ratingElement);
+
+
+        const style = document.createElement('style');
+        style.textContent = `
+        .rating-low {
+            background-color: rgba(246, 43, 43, 0.736);
+            color: white;
+            padding: 2px 7px;
+            border-radius: 5px;
+        }
+
+        .rating-mid {
+            background-color: orange;
+            color: white;
+            padding: 2px 7px;
+            border-radius: 5px;
+        }
+
+        .rating-low:hover, .rating-mid:hover, .rating-high:hover {
+            opacity: 0.8;
+        }
+
+        .not-found {
+            background-color: rgba(208, 201, 189, 0.821);
+            color: rgb(89, 88, 88);
+            padding: 2px 7px;
+            border-radius: 5px;
+            pointer-events: none
+        }
+
+        .rating-high {
+            background-color: rgba(10, 192, 10, 0.83);
+            color: white;
+            padding: 2px 7px;
+            border-radius: 5px;
+        }
+
+        a:link, a:visited {
+            color: white !important;
+            text-decoration: none;
+        }
+
+        .rating-align {
+            text-align: center !important;
+            vertical-align: middle;
+        }
+
+        .black-link {
+            color: black !important;
+            text-decoration: none;
+        }`
+
+        document.head.appendChild(style);
+
+
+        const rating = professorRatings[profName]?.avgRating || "N/A";
+        const ratingElement = document.createElement('a');
+        ratingElement.href = `https://www.ratemyprofessors.com/professor/${professorRatings[profName]?.link}`
+        ratingElement.target = "_blank";
+        ratingElement.classList.add('black-link');
+
+        const spanWrapper = document.createElement('span');
+        spanWrapper.textContent = rating;
+        if (rating === "N/A") {
+            spanWrapper.classList.add('not-found');
+            ratingElement.style.fontSize = "11px";
+            ratingElement.style.color = "gray";
+            ratingElement.style.pointerEvents = "none";
+        }
+        else if (professorRatings[profName].avgRating >= 4) {
+            spanWrapper.classList.add('rating-high');
+        } else if (professorRatings[profName].avgRating >= 2.9) {
+            spanWrapper.classList.add('rating-mid');
+        } else {
+            spanWrapper.classList.add('rating-low');
+        }
+        ratingElement.appendChild(spanWrapper);
+
+        rows[i].cells[rmpIndex].innerHTML = '';
+        rows[i].cells[rmpIndex].classList.add('rating-align');
+        rows[i].cells[rmpIndex].appendChild(ratingElement);
     }
 }
