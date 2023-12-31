@@ -81,10 +81,15 @@ function scrapeRows() {
             const crn = cells[1].textContent.trim();
             const rem = cells[12].textContent.trim();
             const wlRem = cells[13].textContent.trim();
+            const location = cells[17].textContent.trim();
+            let online = false;
+            if (location === "DW ONLINE") {
+                online = true;
+            }
             const profName = cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
                 .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
             if (crn !== null && crn !== undefined && crn !== "") {
-                tempMap.set(crn, { profName, rem, wlRem })
+                tempMap.set(crn, { profName, rem, wlRem, online })
             }
         }
     })
@@ -151,36 +156,41 @@ function updateRatings(professorRatings) {
         const style = document.createElement('style');
         style.textContent = `
         .rating-low {
+            display: inline-block;
             background-color: rgba(246, 43, 43, 0.736);
             color: white;
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
         }
 
         .rating-mid {
+            display: inline-block;
             background-color: orange;
             color: white;
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
         }
 
         .rating-low:hover, .rating-mid:hover, .rating-high:hover {
+            transform: scale(1.05);
             opacity: 0.8;
         }
 
         .not-found {
+            display: inline-block;
             background-color: rgba(208, 201, 189, 0.821);
             color: rgb(89, 88, 88);
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
             pointer-events: none
         }
 
         .rating-high {
+            display: inline-block;
             background-color: rgba(10, 192, 10, 0.83);
             color: white;
             padding: 2px 7px;
-            border-radius: 5px;
+            border-radius: 7px;
         }
 
         td a:link, a:visited {
