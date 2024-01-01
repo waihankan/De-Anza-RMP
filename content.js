@@ -138,8 +138,7 @@ function updateRatings(professorRatings) {
         if (rows[i].cells.length <= 3 || instructorIndex >= rows[i].cells.length) {
             continue;
         }
-        const profName = rows[i].cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
-            .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
+        const profName = rows[i].cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '').replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
 
         const style = document.createElement('style');
         style.textContent = `
@@ -181,11 +180,6 @@ function updateRatings(professorRatings) {
             border-radius: 7px;
         }
 
-        td a:link, a:visited {
-            color: white !important;
-            text-decoration: none;
-        }
-
         .rating-align {
             text-align: center !important;
             vertical-align: middle;
@@ -197,8 +191,7 @@ function updateRatings(professorRatings) {
         }`
 
         document.head.appendChild(style);
-
-
+      
         const rating = professorRatings[profName]?.avgRating || "N/A";
         const ratingElement = document.createElement('a');
         ratingElement.href = `https://www.ratemyprofessors.com/professor/${professorRatings[profName]?.link}`
@@ -225,5 +218,20 @@ function updateRatings(professorRatings) {
         rows[i].cells[rmpIndex].innerHTML = '';
         rows[i].cells[rmpIndex].classList.add('rating-align');
         rows[i].cells[rmpIndex].appendChild(ratingElement);
+
+        // Map professors' names to de anza profile links
+        const words = profName.split(" ");
+        const trimmedWords = words.map(word => word.trim());
+        const profFirstName = trimmedWords[0];
+        const profLastName = trimmedWords[trimmedWords.length - 1];
+        const profileLink = "https://www.deanza.edu/directory/user.html?u=" + profLastName + profFirstName;
+
+        // Embedding link to prof name
+        const profLink = document.createElement('a');
+        profLink.textContent = rows[i].cells[instructorIndex].textContent;
+        rows[i].cells[instructorIndex].textContent = '';
+        profLink.target = '_blank';
+        profLink.href = profileLink;
+        rows[i].cells[instructorIndex].appendChild(profLink);
     }
 }
