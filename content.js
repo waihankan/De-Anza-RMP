@@ -81,10 +81,15 @@ function scrapeRows() {
             const crn = cells[1].textContent.trim();
             const rem = cells[12].textContent.trim();
             const wlRem = cells[13].textContent.trim();
+            const location = cells[17].textContent.trim();
+            let online = false;
+            if (location === "DW ONLINE") {
+                online = true;
+            }
             const profName = cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
                 .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
             if (crn !== null && crn !== undefined && crn !== "") {
-                tempMap.set(crn, { profName, rem, wlRem })
+                tempMap.set(crn, { profName, rem, wlRem, online })
             }
         }
     })
@@ -124,11 +129,11 @@ function addLoadingRating() {
  */
 function updateRatings(professorRatings) {
     const rows = document.querySelectorAll('.datadisplaytable tbody tr');
-    
+
     if (!rows || rows.length === 0) {
         return;
     }
-    
+
     for (let i = 2; i < rows.length; i++) {
         if (rows[i].cells.length <= 3 || instructorIndex >= rows[i].cells.length) {
             continue;
@@ -136,11 +141,90 @@ function updateRatings(professorRatings) {
         const profName = rows[i].cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '')
         .replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
 
+        const style = document.createElement('style');
+        style.textContent = `
+        .rating-low {
+            display: inline-block;
+            background-color: rgba(246, 43, 43, 0.736);
+            color: white;
+            padding: 2px 7px;
+            border-radius: 7px;
+        }
+
+        .rating-mid {
+            display: inline-block;
+            background-color: orange;
+            color: white;
+            padding: 2px 7px;
+            border-radius: 7px;
+        }
+
+        .rating-low:hover, .rating-mid:hover, .rating-high:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        .not-found {
+            display: inline-block;
+            background-color: rgba(208, 201, 189, 0.821);
+            color: rgb(89, 88, 88);
+            padding: 2px 7px;
+            border-radius: 7px;
+            pointer-events: none
+        }
+
+        .rating-high {
+            display: inline-block;
+            background-color: rgba(10, 192, 10, 0.83);
+            color: white;
+            padding: 2px 7px;
+            border-radius: 7px;
+        }
+
+        .rating-align {
+            text-align: center !important;
+            vertical-align: middle;
+        }
+
+        .black-link {
+            color: black !important;
+            text-decoration: none;
+        }`
+
+        document.head.appendChild(style);
+
+        const rating = professorRatings[profName]?.avgRating || "N/A";
+        const ratingElement = document.createElement('a');
+        ratingElement.href = `https://www.ratemyprofessors.com/professor/${professorRatings[profName]?.link}`
+        ratingElement.target = "_blank";
+        ratingElement.classList.add('black-link');
+
+        const spanWrapper = document.createElement('span');
+        spanWrapper.textContent = rating;
+        if (rating === "N/A") {
+            spanWrapper.classList.add('not-found');
+            ratingElement.style.fontSize = "11px";
+            ratingElement.style.color = "gray";
+            ratingElement.style.pointerEvents = "none";
+        }
+        else if (professorRatings[profName].avgRating >= 4) {
+            spanWrapper.classList.add('rating-high');
+        } else if (professorRatings[profName].avgRating >= 2.9) {
+            spanWrapper.classList.add('rating-mid');
+        } else {
+            spanWrapper.classList.add('rating-low');
+        }
+        ratingElement.appendChild(spanWrapper);
+
+        rows[i].cells[rmpIndex].innerHTML = '';
+        rows[i].cells[rmpIndex].classList.add('rating-align');
+        rows[i].cells[rmpIndex].appendChild(ratingElement);
+
         // get prof's profile link
         const words = profName.split(" ");
         const trimmedWords = words.map(word => word.trim());
         const profFirstName = trimmedWords[0];
-        const profLastName = trimmedWords[trimmedWords.length-1];
+        const profLastName = trimmedWords[trimmedWords.length - 1];
         const profileLink = "https://www.deanza.edu/directory/user.html?u=" + profLastName + profFirstName;
 
         // embedding link to prof name
@@ -151,20 +235,19 @@ function updateRatings(professorRatings) {
         profLink.href = profileLink;
         rows[i].cells[instructorIndex].appendChild(profLink);
 
-        // embedding rmp link 
-        const rating = professorRatings[profName]?.avgRating || "can't find";
-        const ratingLink = document.createElement('a');
-        
-        rows[i].cells[rmpIndex].textContent = rating;
-        
-        if (rating !== "can't find") {
-            rows[i].cells[rmpIndex].textContent = '';
-            ratingLink.textContent = rating;
-            ratingLink.target = '_blank';
-            ratingLink.href = `https://www.ratemyprofessors.com/professor/` + professorRatings[profName]?.link;
-            
-            rows[i].cells[rmpIndex].appendChild(ratingLink);
-        }
+        // embedding rmp link
+        // const rating = professorRatings[profName]?.avgRating || "can't find";
+        // const ratingLink = document.createElement('a');
 
+        // rows[i].cells[rmpIndex].textContent = rating;
+
+        // if (rating !== "can't find") {
+        //     rows[i].cells[rmpIndex].textContent = '';
+        //     ratingLink.textContent = rating;
+        //     ratingLink.target = '_blank';
+        //     ratingLink.href = `https://www.ratemyprofessors.com/professor/` + professorRatings[profName]?.link;
+
+        //     rows[i].cells[rmpIndex].appendChild(ratingLink);
+        // }
     }
 }
