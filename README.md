@@ -79,3 +79,4 @@ This project is licensed under the terms of the MIT license. See the [LICENSE](L
 I would like to express gratitude to the following people and organizations:
 
 - [Aung Bo Bo](https://github.com/aungbbo): For their invaluable ideas to the project.
+- [Erik KSTH](https://github.com/erik-ksth): For their code and design contributions.
