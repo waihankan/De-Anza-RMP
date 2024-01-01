@@ -17,7 +17,8 @@ wrongPage.classList.add('not-working');
 wrongPage.innerHTML = `
     <ul>
         <li>The extension works only on FHDA registration page.</li>
-        <li>Please refresh if you're on FHDA registration page and seeing this message.</li>
+        <li>Please go to Myportal > Student Registration > Searchable Schedule of Classes > Choose a Term and Subject.</li>
+        <li>Please refresh if you're already on FHDA registration page and seeing this message.</li>
         <li>For other issues, please click on the "Feedback & Issues" below.</li>
     </ul>
 `;
@@ -60,13 +61,15 @@ function manipulateDOM() {
         let name = row.insertCell(1);
         let rating = row.insertCell(2);
         let difficulty = row.insertCell(3);
-        let openSeats = row.insertCell(4);
+        let location = row.insertCell(4);
+        let openSeats = row.insertCell(5);
         let link = "https://www.ratemyprofessors.com/professor/" + value.link;
 
         crn.innerHTML = key;
         name.innerHTML = `<a style="color: #333" target="_blank" href="${link}">${value.profName}</a>`;
         rating.innerHTML = `<span class="rating">${value.avgRating}</span>`;
         difficulty.innerHTML = `<span class="rating">${value.avgDifficulty}</span>`;
+        location.innerHTML = value.online ? "Online" : "Person";
         openSeats.innerHTML = +value.rem + +value.wlRem;
 
         if (value.avgRating === "N/A" || value.avgRating === 0) {

@@ -15,6 +15,7 @@ Enhance your class registration with **De Anza Rate My Professors Extension (De-
 ## Demo
 
 <div align="center">
+    <img src="images/demo4.png">
     <img src="images/demo.png">
     <br>
     <div display="flex">
