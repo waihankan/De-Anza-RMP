@@ -7,12 +7,31 @@
 
 Enhance your class registration with **De Anza Rate My Professors Extension (De-Anza-RMP)**, a Chromium-based browser extension. Seamlessly integrating professor ratings into the registration page, this tool empowers students to make well-informed decisions when selecting classes.
 
+*Download for Free* in [Chrome Web Store](bit.ly/deanzaRmp)
+
+#### <ins>Notes on Enhanced Safe Browsing Warning:</ins>
+
+According to [Google](https://support.google.com/chrome_webstore/answer/2664769?hl=en-GB#zippy=%2Cinstall-with-enhanced-safe-browsing),
+
+> Extensions are considered trusted when they’re built by a developer who follows the Chrome Web Store Developer Programme Policies.
+
+> For new developers, it generally takes a few months to become trusted. Eventually, we strive for all developers with compliant extensions to reach this status upon meeting our Developer Programme Policies.
+
+I created a Google developer account just for this extension and thus it is possible that some people may get this error.
+
+However, this project follows Chrome Web Store Developer Programme Policies, and hopefully, the extension will become trusted in a few months.
+
+If you have the error, you can simply click on `Continue to Install` to proceed. ![image](https://github.com/waihankan/De-Anza-RMP/assets/42233059/a6d78723-129e-4deb-8ac5-8642ef39b80c)
+
+
+
 **[NO DATA IS COLLECTED FROM USERS]**
 
 ## Features
 
-- Displays professor ratings on FHDA MyPortal registration page
-- Provides quick access to professor reviews
+- Displays professor ratings on FHDA MyPortal registration page.
+- Provides quick access to professor reviews.
+- Link Professors directly to De Anza Faculty page. <sub><sup> [thanks to [Erik](https://github.com/erik-ksth)] </sub></sup>
 
 ## Demo
 
@@ -26,7 +45,8 @@ Enhance your class registration with **De Anza Rate My Professors Extension (De-
     </div>
 </div>
 
-## Installation
+## Developer Installation
+<sub><sup>If you want the latest version or you're a developer, this is the preferred way to install the extension. It takes several days to publish on Chrome Store since Google reviews the code, manifest, permissions, and privacy beforing allowing devlopers to release a newer version.</sup></sub>
 
 1. Download or clone this repository: `git clone https://github.com/waihankan/De-Anza-RMP.git`
 2. Open the Extension Management page by navigating to `chrome://extensions`.
@@ -56,6 +76,9 @@ Please read the [disclaimer](DISCLAIMER.md) for more information.
 
 ## Project Layout
 ![Alt text](images/abstraction.png)
+
+![image](https://github.com/waihankan/De-Anza-RMP/assets/42233059/35ceeec8-7ed6-4442-bbed-dd31b2ed3a50)
+
 ## Contributing
 
 We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for more details.
