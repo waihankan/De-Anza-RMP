@@ -7,6 +7,8 @@
 
 Enhance your class registration with **De Anza Rate My Professors Extension (De-Anza-RMP)**, a Chromium-based browser extension. Seamlessly integrating professor ratings into the registration page, this tool empowers students to make well-informed decisions when selecting classes.
 
+**[NO DATA IS COLLECTED FROM USERS]**
+
 ## Features
 
 - Displays professor ratings on FHDA MyPortal registration page
