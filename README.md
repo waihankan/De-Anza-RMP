@@ -17,7 +17,7 @@ According to [Google](https://support.google.com/chrome_webstore/answer/2664769?
 
 > For new developers, it generally takes a few months to become trusted. Eventually, we strive for all developers with compliant extensions to reach this status upon meeting our Developer Programme Policies.
 
-I created a Google developer account just for this extension and thus it is possible that some people may get this error.
+I just created a Google developer account for this extension and thus it is possible that some people may get this warning.
 
 However, this project follows Chrome Web Store Developer Programme Policies, and hopefully, the extension will become trusted in a few months.
 
