@@ -34,6 +34,8 @@ If you have the error, you can simply click on `Continue to Install` to proceed.
 
 ## Demo
 
+https://github.com/waihankan/De-Anza-RMP/assets/42233059/e7a94ff2-14c1-4412-87a3-5899f0ce2fc0
+
 <div align="center">
     <img src="images/demo4.png">
     <img src="images/demo.png">
@@ -43,6 +45,8 @@ If you have the error, you can simply click on `Continue to Install` to proceed.
         <img src="images/demo3.png">
     </div>
 </div>
+
+
 
 ## Developer Installation
 <sub><sup>If you want the latest version or you're a developer, this is the preferred way to install the extension. It takes several days to publish on Chrome Store since Google reviews the code, manifest, permissions, and privacy beforing allowing devlopers to release a newer version.</sup></sub>
