@@ -1,5 +1,8 @@
 const AUTH_TOKEN = 'dGVzdDp0ZXN0';
-const schoolID = 'U2Nob29sLTE5Njc='; // De Anza College ID
+const deanzaID = 'U2Nob29sLTE5Njc='; // De Anza College ID
+const foothillID = "U2Nob29sLTE1ODE=";
+
+
 
 let professorRatingMap = new Map();
 let professors;
@@ -16,7 +19,8 @@ chrome.runtime.onMessage.addListener((message) => {
         Promise.all(professors.map(async (prof) => {
             const modifiedName = getFirstAndLastName(prof);
 
-            const professor = await searchProfessorOnRmp(modifiedName, schoolID);
+            const professor = await searchProfessorOnRmp(modifiedName, deanzaID);
+            console.log("Professors: " + professor.length);
             if (professor && professor.length > 0) {
                 const professorRating = await getProfessor(professor[0].id);
                 professorRatingMap.set(prof, {
@@ -38,7 +42,7 @@ chrome.runtime.onMessage.addListener((message) => {
     else if (message.type === "ClassData") {
         Promise.all(professors.map(async (prof) => {
             const modifiedName = getFirstAndLastName(prof);
-            const professor = await searchProfessorOnRmp(modifiedName, schoolID);
+            const professor = await searchProfessorOnRmp(modifiedName, deanzaID);
             if (professor && professor.length > 0) {
                 const professorRating = await getProfessor(professor[0].id);
                 professorRatingMap.set(prof, {
@@ -132,7 +136,13 @@ async function searchProfessorOnRmp(name, schoolID) {
     const json = await response.json();
     if (json.data.newSearch.teachers.edges.length > 0) {
         return json.data.newSearch.teachers.edges.map((edge) => edge.node);
-    } else {
+    }
+
+    else if (schoolID === deanzaID) {
+        return searchProfessorOnRmp(name, foothillID);
+    }
+
+    else {
         console.log("Can't find professor: " + name);
         return [];
     }
