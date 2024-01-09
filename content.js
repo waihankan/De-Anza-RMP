@@ -139,6 +139,7 @@ function updateRatings(professorRatings) {
             continue;
         }
         const profName = rows[i].cells[instructorIndex].textContent.trim().replace(/\(P\)|\(T\)/g, '').replace(/\s\s+/g, ' ').replace(/\s\(/g, '(').trim();
+        const campus = rows[i].cells[17].textContent.trim().match(/^(DA|FH|DW|FW)/)[0];
 
         const style = document.createElement('style');
         style.textContent = `
@@ -191,7 +192,7 @@ function updateRatings(professorRatings) {
         }`
 
         document.head.appendChild(style);
-      
+
         const rating = professorRatings[profName]?.avgRating || "N/A";
         const ratingElement = document.createElement('a');
         ratingElement.href = `https://www.ratemyprofessors.com/professor/${professorRatings[profName]?.link}`
@@ -224,9 +225,15 @@ function updateRatings(professorRatings) {
         const trimmedWords = words.map(word => word.trim());
         const profFirstName = trimmedWords[0];
         const profLastName = trimmedWords[trimmedWords.length - 1];
-        const profileLink = "https://www.deanza.edu/directory/user.html?u=" + profLastName + profFirstName;
+        let profileLink;
 
         // Embedding link to prof name
+        if (campus === "DA" || campus === "DW") {
+            profileLink = "https://www.deanza.edu/directory/user.html?u=" + profLastName + profFirstName;
+        } else if (campus === "FH" || campus === "FW") {
+            profileLink = "https://foothill.edu/directory/profile/" + profLastName.toLowerCase() + "_" + profFirstName.toLowerCase() + ".html";
+        }
+
         const profLink = document.createElement('a');
         profLink.textContent = rows[i].cells[instructorIndex].textContent;
         rows[i].cells[instructorIndex].textContent = '';
