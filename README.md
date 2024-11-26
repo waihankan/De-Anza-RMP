@@ -30,7 +30,7 @@ If you have the error, you can simply click on `Continue to Install` to proceed.
 
 - Displays professor ratings on FHDA MyPortal registration page.
 - Provides quick access to professor reviews.
-- Link Professors directly to De Anza Faculty page. <sub><sup> [thanks to [Erik](https://github.com/erik-ksth)] </sub></sup>
+- Link Professors directly to De Anza Faculty page. [thanks to [Erik](https://github.com/erik-ksth)]
 
 ## Demo
 
